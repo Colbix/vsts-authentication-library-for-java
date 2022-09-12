@@ -7,6 +7,7 @@ import java.nio.charset.Charset;
 
 public class StringHelper {
     private static final Charset UTF8 = Charset.forName("UTF-8");
+    private static final Charset UTF16LE = Charset.forName("UTF-16LE");
 
     public static final String Empty = "";
 
@@ -192,6 +193,17 @@ public class StringHelper {
         final byte[] result = value.getBytes(UTF8);
         return result;
     }
+    
+    /**
+     * Encodes all the characters in the specified string into a sequence of UTF-16LE bytes.
+     *
+     * @param value The string containing the characters to encode.
+     * @return A byte array containing the results of encoding the specified set of characters.
+     */
+    public static byte[] UTF16LEGetBytes(final String value) {
+        final byte[] result = value.getBytes(UTF16LE);
+        return result;
+    }
 
     /**
      * Decodes all the bytes in the specified byte array into a string.
@@ -201,6 +213,17 @@ public class StringHelper {
      */
     public static String UTF8GetString(final byte[] bytes) {
         final String result = new String(bytes, UTF8);
+        return result;
+    }
+    
+    /**
+     * Decodes all the bytes in the specified byte array into a string.
+     *
+     * @param bytes The byte array containing the sequence of bytes to decode.
+     * @return A string that contains the results of decoding the specified sequence of bytes.
+     */
+    public static String UTF16LEGetString(final byte[] bytes) {
+        final String result = new String(bytes, UTF16LE);
         return result;
     }
 
@@ -214,6 +237,19 @@ public class StringHelper {
      */
     public static String UTF8GetString(final byte[] bytes, final int index, final int count) {
         final String result = new String(bytes, index, count, UTF8);
+        return result;
+    }
+    
+    /**
+     * Decodes a range of bytes from a byte array into a string.
+     *
+     * @param bytes The byte array containing the sequence of bytes to decode.
+     * @param index The index of the first byte to decode.
+     * @param count The number of bytes to decode.
+     * @return A string that contains the results of decoding the specified sequence of bytes.
+     */
+    public static String UTF16LEGetString(final byte[] bytes, final int index, final int count) {
+        final String result = new String(bytes, index, count, UTF16LE);
         return result;
     }
 }
