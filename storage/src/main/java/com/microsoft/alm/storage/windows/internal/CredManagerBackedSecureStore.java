@@ -11,19 +11,19 @@ import com.microsoft.alm.storage.SecretStore;
 import com.sun.jna.LastErrorException;
 import com.sun.jna.Memory;
 import com.sun.jna.Pointer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
-import static com.microsoft.alm.helpers.LoggingHelper.logError;
+//import static com.microsoft.alm.helpers.LoggingHelper.logError;
 
 /**
  * This class exposes functions to interact with Windows Credential Manager
  */
 public abstract class CredManagerBackedSecureStore<E extends Secret> implements SecretStore<E> {
 
-    private static final Logger logger = LoggerFactory.getLogger(CredManagerBackedSecureStore.class);
+    //private static final Logger logger = LoggerFactory.getLogger(CredManagerBackedSecureStore.class);
 
     private final CredAdvapi32 INSTANCE = getCredAdvapi32Instance();
 
@@ -71,7 +71,7 @@ public abstract class CredManagerBackedSecureStore<E extends Secret> implements 
     public E get(String key) {
         Debug.Assert(key != null, "key cannot be null");
 
-        logger.info("Getting secret for {}", key);
+        //logger.info("Getting secret for {}", key);
 
         final CredAdvapi32.PCREDENTIAL pcredential = new CredAdvapi32.PCREDENTIAL();
         boolean read = false;
@@ -97,7 +97,7 @@ public abstract class CredManagerBackedSecureStore<E extends Secret> implements 
             }
 
         } catch (final LastErrorException e) {
-            logError(logger, "Getting secret failed.", e);
+            //logError(logger, "Getting secret failed.", e);
             cred = null;
 
         } finally {
@@ -126,14 +126,14 @@ public abstract class CredManagerBackedSecureStore<E extends Secret> implements 
     public boolean delete(String key) {
         Debug.Assert(key != null, "key cannot be null");
 
-        logger.info("Deleting secret for {}", key);
+        //logger.info("Deleting secret for {}", key);
 
         try {
             synchronized (INSTANCE) {
                 return INSTANCE.CredDelete(key, CredAdvapi32.CRED_TYPE_GENERIC, 0);
             }
         } catch (LastErrorException e) {
-            logError(logger, "Deleteing secret failed.", e);
+            //logError(logger, "Deleteing secret failed.", e);
             return false;
         }
     }
@@ -155,7 +155,7 @@ public abstract class CredManagerBackedSecureStore<E extends Secret> implements 
         Debug.Assert(key != null, "key cannot be null");
         Debug.Assert(secret != null, "Secret cannot be null");
 
-        logger.info("Adding secret for {}", key);
+        //logger.info("Adding secret for {}", key);
 
         final String username = getUsername(secret);
         final String credentialBlob = getCredentialBlob(secret);
@@ -171,7 +171,7 @@ public abstract class CredManagerBackedSecureStore<E extends Secret> implements 
             return true;
         }
         catch (LastErrorException e) {
-            logError(logger, "Adding secret failed.", e);
+            //logError(logger, "Adding secret failed.", e);
             return false;
         } finally {
             cred.CredentialBlob.clear(credBlob.length);
@@ -217,8 +217,8 @@ public abstract class CredManagerBackedSecureStore<E extends Secret> implements 
         if (SystemHelper.isWindows()) {
             return CredAdvapi32.INSTANCE;
         } else {
-            logger.warn("Returning a dummy library on non Windows platform.  " +
-                    "This is a bug unless you are testing.");
+            //logger.warn("Returning a dummy library on non Windows platform.  " +
+                    //"This is a bug unless you are testing.");
 
             // Return a dummy on other platforms
             return new CredAdvapi32() {

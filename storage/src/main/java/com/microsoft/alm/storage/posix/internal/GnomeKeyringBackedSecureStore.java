@@ -8,12 +8,12 @@ import com.microsoft.alm.helpers.SettingsHelper;
 import com.microsoft.alm.helpers.SystemHelper;
 import com.microsoft.alm.secret.Secret;
 import com.microsoft.alm.storage.SecretStore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 public abstract class GnomeKeyringBackedSecureStore<E extends Secret> implements SecretStore<E> {
 
-    private static final Logger logger = LoggerFactory.getLogger(GnomeKeyringBackedSecureStore.class);
+    //private static final Logger logger = LoggerFactory.getLogger(GnomeKeyringBackedSecureStore.class);
 
     private static final GnomeKeyringLibrary INSTANCE = getGnomeKeyringLibrary();
     private static final GnomeKeyringLibrary.GnomeKeyringPasswordSchema SCHEMA = getGnomeKeyringPasswordSchema();
@@ -53,7 +53,7 @@ public abstract class GnomeKeyringBackedSecureStore<E extends Secret> implements
     public E get(final String key) {
         Debug.Assert(key != null, "key cannot be null");
 
-        logger.info("Getting {} for {}", getType(), key);
+        //logger.info("Getting {} for {}", getType(), key);
 
         GnomeKeyringLibrary.PointerToPointer pPassword = new GnomeKeyringLibrary.PointerToPointer();
         String secret = null;
@@ -79,7 +79,7 @@ public abstract class GnomeKeyringBackedSecureStore<E extends Secret> implements
     @Override
     public boolean delete(final String key) {
         Debug.Assert(key != null, "key cannot be null");
-        logger.info("Deleting {} for {}", getType(), key);
+       //logger.info("Deleting {} for {}", getType(), key);
 
         final int result = INSTANCE.gnome_keyring_delete_password_sync(
                 SCHEMA,
@@ -95,7 +95,7 @@ public abstract class GnomeKeyringBackedSecureStore<E extends Secret> implements
         Debug.Assert(key != null, "key cannot be null");
         Debug.Assert(secret != null, "Secret cannot be null");
 
-        logger.info("Adding a {} for {}", getType(), key);
+        //logger.info("Adding a {} for {}", getType(), key);
 
         final int result = INSTANCE.gnome_keyring_store_password_sync(
                 SCHEMA,
@@ -140,7 +140,7 @@ public abstract class GnomeKeyringBackedSecureStore<E extends Secret> implements
                 }
             }
         } catch (final Throwable t) {
-            logger.warn("Gnome Keyring is not available.", t);
+            //logger.warn("Gnome Keyring is not available.", t);
         }
 
         return false;
@@ -162,7 +162,7 @@ public abstract class GnomeKeyringBackedSecureStore<E extends Secret> implements
 
         // Make sure gnome-keyring supports simple password API - this check does not require 
         // keyring to be unlocked first 
-        logger.debug("Try access gnome-keyring with dummy data to make sure it's accessible...");
+        //logger.debug("Try access gnome-keyring with dummy data to make sure it's accessible...");
         try {
             GnomeKeyringLibrary.PointerToPointer pPassword = new GnomeKeyringLibrary.PointerToPointer();
             INSTANCE.gnome_keyring_find_password_sync(
@@ -175,8 +175,8 @@ public abstract class GnomeKeyringBackedSecureStore<E extends Secret> implements
                     null
                     );
         } catch (UnsatisfiedLinkError error) {
-            logger.warn("GNOME Keyring on this platform does not support the simple password API.  " +
-                    "We require gnome-keyring 2.22+.");
+            //logger.warn("GNOME Keyring on this platform does not support the simple password API.  " +
+                    //"We require gnome-keyring 2.22+.");
 
             return false;
         }
@@ -190,16 +190,16 @@ public abstract class GnomeKeyringBackedSecureStore<E extends Secret> implements
         final boolean locked = INSTANCE.gnome_keyring_info_get_is_locked(keyring_info.pointer);
 
         if (locked) {
-            logger.info("Keyring is locked, most likely due to UI is unavailable or user logged in " +
-                    "automatically without supplying a password.");
+            //logger.info("Keyring is locked, most likely due to UI is unavailable or user logged in " +
+                    //"automatically without supplying a password.");
 
             final boolean allowUnlock = Boolean.valueOf(SettingsHelper.getInstance().getProperty(ALLOW_UNLOCK_KEYRING));
             if (allowUnlock) {
                 final int ret = INSTANCE.gnome_keyring_unlock_sync(GnomeKeyringLibrary.GNOME_KEYRING_DEFAULT, null);
                 return checkResult(ret, "Could not unlock keyring. GNOME Keyring is not available.");
             } else {
-                logger.info("Keyring is locked and unavailable, please set variable {} to " +
-                        "allow unlocking the keyring with a popup dialog.", ALLOW_UNLOCK_KEYRING); 
+               // logger.info("Keyring is locked and unavailable, please set variable {} to " +
+                        //"allow unlocking the keyring with a popup dialog.", ALLOW_UNLOCK_KEYRING); 
 
                 return false;
             }
@@ -219,14 +219,14 @@ public abstract class GnomeKeyringBackedSecureStore<E extends Secret> implements
                 try {
                     GLibInitializer.getInstance().initialize();
                 } catch (final UnsatisfiedLinkError error) {
-                    logger.warn("Glib not available -- user will see warnings printed on screen. Those warnings are " +
-                            "not serious and can be ignored.");
+                    //logger.warn("Glib not available -- user will see warnings printed on screen. Those warnings are " +
+                            //"not serious and can be ignored.");
                 }
 
                 return true;
             } catch (final Throwable t) {
                 // ignore error
-                logger.info("gnome-keyring library not loaded", t);
+                //logger.info("gnome-keyring library not loaded", t);
             }
         }
 
@@ -240,7 +240,7 @@ public abstract class GnomeKeyringBackedSecureStore<E extends Secret> implements
     private static GnomeKeyringLibrary.GnomeKeyringPasswordSchema getGnomeKeyringPasswordSchema() {
         try {
             if (isGnomeKeyringLibraryAvailable()) {
-                logger.info("gnome-keyring library loaded, creating a password SCHEMA");
+                //logger.info("gnome-keyring library loaded, creating a password SCHEMA");
                 GnomeKeyringLibrary.GnomeKeyringPasswordSchema schema
                         = new GnomeKeyringLibrary.GnomeKeyringPasswordSchema();
 
@@ -263,10 +263,10 @@ public abstract class GnomeKeyringBackedSecureStore<E extends Secret> implements
                 return schema;
 
             } else {
-                logger.info("gnome-keyring library not loaded, return null for SCHEMA");
+                //logger.info("gnome-keyring library not loaded, return null for SCHEMA");
             }
         } catch (final Throwable t) {
-            logger.warn("creating SCHEMA failed, return null for SCHEMA.", t);
+            //logger.warn("creating SCHEMA failed, return null for SCHEMA.", t);
         }
 
         return null;
@@ -274,11 +274,11 @@ public abstract class GnomeKeyringBackedSecureStore<E extends Secret> implements
 
     private static boolean checkResult(final int retCode, final String message) {
         if (retCode != GnomeKeyringLibrary.GNOME_KEYRING_RESULT_OK) {
-            logger.error(message);
+            //logger.error(message);
             try {
-                logger.error("Return code: {} description: {}", retCode, INSTANCE.gnome_keyring_result_to_message(retCode));
+                //logger.error("Return code: {} description: {}", retCode, INSTANCE.gnome_keyring_result_to_message(retCode));
             } catch (UnsatisfiedLinkError e) {
-                logger.error("Return code: {}", retCode);
+                //logger.error("Return code: {}", retCode);
             }
 
             return false;

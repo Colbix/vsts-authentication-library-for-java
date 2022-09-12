@@ -8,8 +8,8 @@ import com.microsoft.alm.helpers.StringHelper;
 import com.microsoft.alm.helpers.XmlHelper;
 import com.microsoft.alm.secret.Credential;
 import com.microsoft.alm.storage.posix.internal.GnomeKeyringBackedSecureStore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -18,11 +18,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import static com.microsoft.alm.helpers.LoggingHelper.logError;
+//import static com.microsoft.alm.helpers.LoggingHelper.logError;
 
 public class GnomeKeyringBackedCredentialStore extends GnomeKeyringBackedSecureStore<Credential> {
 
-    private static final Logger logger = LoggerFactory.getLogger(GnomeKeyringBackedCredentialStore.class);
+   //private static final Logger logger = LoggerFactory.getLogger(GnomeKeyringBackedCredentialStore.class);
 
     @Override
     protected Credential deserialize(final String secret) {
@@ -31,7 +31,7 @@ public class GnomeKeyringBackedCredentialStore extends GnomeKeyringBackedSecureS
         try {
             return fromXmlString(secret);
         } catch (final Exception e) {
-            logError(logger, "Failed to deserialize credential.", e);
+            //logError(logger, "Failed to deserialize credential.", e);
             return null;
         }
     }

@@ -8,8 +8,8 @@ import com.microsoft.alm.helpers.StringHelper;
 import com.microsoft.alm.helpers.XmlHelper;
 import com.microsoft.alm.secret.TokenPair;
 import com.microsoft.alm.storage.posix.internal.GnomeKeyringBackedSecureStore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -18,11 +18,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import static com.microsoft.alm.helpers.LoggingHelper.logError;
+//import static com.microsoft.alm.helpers.LoggingHelper.logError;
 
 public class GnomeKeyringBackedTokenPairStore extends GnomeKeyringBackedSecureStore<TokenPair> {
 
-    private static final Logger logger = LoggerFactory.getLogger(GnomeKeyringBackedTokenPairStore.class);
+    //private static final Logger logger = LoggerFactory.getLogger(GnomeKeyringBackedTokenPairStore.class);
 
     @Override
     protected String serialize(final TokenPair tokenPair) {
@@ -38,7 +38,7 @@ public class GnomeKeyringBackedTokenPairStore extends GnomeKeyringBackedSecureSt
         try {
             return TokenPair.fromXmlString(secret);
         } catch (final Exception e) {
-            logError(logger, "Failed to deserialize the stored secret. Return null.", e);
+            //logError(logger, "Failed to deserialize the stored secret. Return null.", e);
             return null;
         }
     }

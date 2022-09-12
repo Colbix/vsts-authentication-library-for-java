@@ -19,15 +19,15 @@ import com.microsoft.alm.storage.posix.internal.GnomeKeyringBackedSecureStore;
 import com.microsoft.alm.storage.windows.CredManagerBackedCredentialStore;
 import com.microsoft.alm.storage.windows.CredManagerBackedTokenPairStore;
 import com.microsoft.alm.storage.windows.CredManagerBackedTokenStore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StorageProvider {
 
-    private static Logger logger  = LoggerFactory.getLogger(StorageProvider.class);
+    //private static Logger logger  = LoggerFactory.getLogger(StorageProvider.class);
 
     public enum SecureOption {
         /**
@@ -85,8 +85,8 @@ public class StorageProvider {
     public static SecretStore<Token> getTokenStorage(final boolean persist, final SecureOption secureOption) {
         Debug.Assert(secureOption != null, "secureOption cannot be null");
 
-        logger.info("Getting a {} token store that {} be secure", persist ? "persistent" : "non-persistent",
-                secureOption == SecureOption.MUST ? "must" : "could");
+        //logger.info("Getting a {} token store that {} be secure", persist ? "persistent" : "non-persistent",
+                //secureOption == SecureOption.MUST ? "must" : "could");
 
         final NonPersistentStoreGenerator<Token> inMemoryStoreGenerator = new NonPersistentStoreGenerator<Token>() {
             @Override
@@ -96,7 +96,7 @@ public class StorageProvider {
 
             @Override
             public SecretStore<Token> getSecureNonPersistentStore() {
-                logger.warn("Do not have any secure non-persistent stores available.");
+                //logger.warn("Do not have any secure non-persistent stores available.");
                 return null;
             }
         };
@@ -107,8 +107,8 @@ public class StorageProvider {
     public static SecretStore<TokenPair> getTokenPairStorage(final boolean persist, final SecureOption secureOption) {
         Debug.Assert(secureOption != null, "secureOption cannot be null");
 
-        logger.info("Getting a {} tokenPair store that {} be secure", persist ? "persistent" : "non-persistent",
-                secureOption == SecureOption.MUST ? "must" : "could");
+        //logger.info("Getting a {} tokenPair store that {} be secure", persist ? "persistent" : "non-persistent",
+                //secureOption == SecureOption.MUST ? "must" : "could");
 
         final NonPersistentStoreGenerator<TokenPair> inMemoryStoreGenerator = new NonPersistentStoreGenerator<TokenPair>() {
             @Override
@@ -118,7 +118,7 @@ public class StorageProvider {
 
             @Override
             public SecretStore<TokenPair> getSecureNonPersistentStore() {
-                logger.warn("Do not have any secure non-persistent stores available.");
+                //logger.warn("Do not have any secure non-persistent stores available.");
                 return null;
             }
         };
@@ -129,8 +129,8 @@ public class StorageProvider {
     public static SecretStore<Credential> getCredentialStorage(final boolean persist, final SecureOption secureOption) {
         Debug.Assert(secureOption != null, "secureOption cannot be null");
 
-        logger.info("Getting a {} credential store that {} be secure", persist ? "persistent" : "non-persistent",
-                secureOption == SecureOption.MUST ? "must" : "could");
+        //logger.info("Getting a {} credential store that {} be secure", persist ? "persistent" : "non-persistent",
+                //secureOption == SecureOption.MUST ? "must" : "could");
 
         final NonPersistentStoreGenerator<Credential> inMemoryStoreGenerator = new NonPersistentStoreGenerator<Credential>() {
             @Override
@@ -140,7 +140,7 @@ public class StorageProvider {
 
             @Override
             public SecretStore<Credential> getSecureNonPersistentStore() {
-                logger.warn("Do not have any secure non-persistent stores available.");
+                //logger.warn("Do not have any secure non-persistent stores available.");
                 return null;
             }
         };
