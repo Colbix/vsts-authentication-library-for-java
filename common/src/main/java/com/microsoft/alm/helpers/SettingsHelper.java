@@ -3,8 +3,8 @@
 
 package com.microsoft.alm.helpers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileReader;
@@ -19,7 +19,7 @@ import java.util.Properties;
  */
 public class SettingsHelper {
 
-    private static final Logger logger = LoggerFactory.getLogger(SettingsHelper.class);
+    //private static final Logger logger = LoggerFactory.getLogger(SettingsHelper.class);
 
     private static final String VENDOR_FOLDER = SystemHelper.isLinux() ? ".microsoft" : "Microsoft";
     private static final String PROGRAM_FOLDER = "VstsAuthLib4J";
@@ -65,28 +65,28 @@ public class SettingsHelper {
     private SettingsHelper() {
         final String path = getSettingsFolderName();
         final File folder = new File(path);
-        logger.info("Searching for {}", Path.combine(folder.getAbsolutePath(), FILE_NAME));
+        //logger.info("Searching for {}", Path.combine(folder.getAbsolutePath(), FILE_NAME));
         if (folder.exists()) {
             final File potential = new File(folder, FILE_NAME);
             if (potential.exists() && potential.isFile() && potential.canRead()) {
-                logger.info("Found setting file, trying to load properties from {}", potential.getAbsolutePath());
+                //logger.info("Found setting file, trying to load properties from {}", potential.getAbsolutePath());
 
                 try {
                     properties.load(new FileReader(potential));
-                    logger.info("Properties loaded.");
+                    //logger.info("Properties loaded.");
                     final boolean setSystemEnv = !(Boolean.valueOf(properties.getProperty(DO_NOT_SET_SYSTEM_ENV)));
                     if (setSystemEnv) {
                         // oauth2-useragent reads System properties.  If we want to propagate any values downstream,
                         // we must load our properties into System.properties
                         for (final Map.Entry<Object, Object> entry : properties.entrySet()) {
                             if (entry.getKey() instanceof String && entry.getValue() instanceof String) {
-                                logger.info("Setting System property {} to {}", entry.getKey(), entry.getValue());
+                                //logger.info("Setting System property {} to {}", entry.getKey(), entry.getValue());
                                 System.setProperty(entry.getKey().toString(), entry.getValue().toString());
                             }
                         }
                     }
                 } catch (Throwable t) {
-                    logger.warn("Failed to load properties.", t);
+                    //logger.warn("Failed to load properties.", t);
                     properties.clear();
                 }
             }

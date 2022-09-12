@@ -4,14 +4,14 @@
 package com.microsoft.alm.storage;
 
 import com.microsoft.alm.secret.Credential;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
-import static com.microsoft.alm.helpers.LoggingHelper.logError;
+//import static com.microsoft.alm.helpers.LoggingHelper.logError;
 
 public class InsecureFileBackedCredentialStore implements SecretStore<Credential> {
 
-    private static Logger logger = LoggerFactory.getLogger(InsecureFileBackedCredentialStore.class);
+    //private static Logger logger = LoggerFactory.getLogger(InsecureFileBackedCredentialStore.class);
 
     private static InsecureFileBackend fileBackend = InsecureFileBackend.getInstance();
 
@@ -32,7 +32,7 @@ public class InsecureFileBackedCredentialStore implements SecretStore<Credential
 
             return true;
         } catch (final Throwable t) {
-            logError(logger, "Failed to add secret to file backed credential store.", t);
+            //logError(logger, "Failed to add secret to file backed credential store.", t);
 
             return false;
         }

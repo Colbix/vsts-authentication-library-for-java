@@ -9,8 +9,8 @@ import com.microsoft.alm.helpers.SystemHelper;
 import com.microsoft.alm.helpers.XmlHelper;
 import com.microsoft.alm.secret.Credential;
 import com.microsoft.alm.secret.Token;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -33,11 +33,11 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.microsoft.alm.helpers.LoggingHelper.logError;
+//import static com.microsoft.alm.helpers.LoggingHelper.logError;
 
 class InsecureFileBackend {
 
-    private static final Logger logger = LoggerFactory.getLogger(InsecureFileBackend.class);
+    //private static final Logger logger = LoggerFactory.getLogger(InsecureFileBackend.class);
 
     public static final String PROGRAM_FOLDER_NAME = "VSTeamServicesAuthPlugin";
 
@@ -80,7 +80,7 @@ class InsecureFileBackend {
                     this.Credentials.putAll(clone.Credentials);
                 }
             } catch (final FileNotFoundException e) {
-                logger.info("backingFile {} did not exist", backingFile.getAbsolutePath());
+               // logger.info("backingFile {} did not exist", backingFile.getAbsolutePath());
             } finally {
                 IOHelper.closeQuietly(fis);
             }
@@ -103,12 +103,12 @@ class InsecureFileBackend {
             if (!backingFile.setReadable(false, false)
                     || !backingFile.setWritable(false, false)
                     || !backingFile.setExecutable(false, false)) {
-                logger.warn("Unable to remove file permissions for everybody: {}", backingFile);
+                //logger.warn("Unable to remove file permissions for everybody: {}", backingFile);
             }
             if (!backingFile.setReadable(true, true)
                     || !backingFile.setWritable(true, true)
                     || !backingFile.setExecutable(false, true)) {
-                logger.warn("Unable to set file permissions for owner: {}", backingFile);
+                //logger.warn("Unable to set file permissions for owner: {}", backingFile);
             }
         }
     }
@@ -145,7 +145,7 @@ class InsecureFileBackend {
             }
             return result;
         } catch (final Exception e) {
-            logError(logger, "Warning: unable to deserialize InsecureFileBackend. Is the file corrupted?", e);
+            //logError(logger, "Warning: unable to deserialize InsecureFileBackend. Is the file corrupted?", e);
             return null;
         }
     }

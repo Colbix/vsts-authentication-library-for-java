@@ -8,8 +8,8 @@ import com.microsoft.alm.helpers.Guid;
 import com.microsoft.alm.helpers.NotImplementedException;
 import com.microsoft.alm.helpers.StringHelper;
 import com.microsoft.alm.helpers.XmlHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class Token extends Secret {
 
-    private static final Logger logger = LoggerFactory.getLogger(Token.class);
+    //private static final Logger logger = LoggerFactory.getLogger(Token.class);
 
     private static final int sizeofTokenType = 4;
     private static final int sizeofGuid = 16;
@@ -254,7 +254,7 @@ public class Token extends Secret {
                 }
             }
         } catch (final Throwable throwable) {
-            logger.debug("   token deserialization error");
+            //logger.debug("   token deserialization error");
         }
 
         return tokenReference.get() != null;
@@ -279,7 +279,7 @@ public class Token extends Secret {
             bytes.put(utf8bytes);
             byteReference.set(bytes.array());
         } catch (final Throwable t) {
-            logger.debug("   token serialization error");
+            //logger.debug("   token serialization error");
         }
 
         return byteReference.get() != null;

@@ -3,8 +3,8 @@
 
 package com.microsoft.alm.helpers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class HttpClientImpl implements HttpClient {
 
-    private static final Logger logger = LoggerFactory.getLogger(HttpClientImpl.class);
+    //private static final Logger logger = LoggerFactory.getLogger(HttpClientImpl.class);
 
     public final Map<String, String> Headers = new LinkedHashMap<String, String>();
 
